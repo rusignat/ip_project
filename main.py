@@ -12,7 +12,7 @@ s = list(schedules.keys())
 for i in range(0, len(s)):
     k = {s[i]: 'one:' + s[i]}
     kf.append(k)
-days = {0: 'Понедельник', 1: 'Вторник', 2: 'Среду', 3: 'Четверг', 4: 'Пятницу', 5: 'Субботу'}
+days = {0: 'Понедельник', 1: 'Вторник', 2: 'Среду', 3: 'Четверг', 4: 'Пятницу', 5: 'субботу'}
 
 
 @token.message_handler(commands=['start'])
@@ -36,17 +36,13 @@ def check_text(message):
 @token.callback_query_handler(func=lambda callback:callback.data.startswith('one:'))
 def callback_sms_one(callback):
     f.append(callback.data[4:])
-    day = ''
-    if datetime.datetime.now().hour > 10:
-        day += days[datetime.datetime.now().weekday()+1]
-    else:
-        day += days[datetime.datetime.now().weekday()]
-
     markup = tl.types.InlineKeyboardMarkup()
-    btn1 = tl.types.InlineKeyboardButton('Расписание на завтра', callback_data=f'two:{day}')
-    btn2 = tl.types.InlineKeyboardButton('Другое', callback_data='other:Другое')
+    btn1 = tl.types.InlineKeyboardButton('Расписание на сегодня', callback_data=f'two:{days[datetime.datetime.now().weekday()]}')
+    btn2 = tl.types.InlineKeyboardButton('Расписание на завтра', callback_data=f'two:{days[datetime.datetime.now().weekday()+1]}')
+    btn3 = tl.types.InlineKeyboardButton('Другое', callback_data='other:Другое')
     markup.row(btn1)
     markup.row(btn2)
+    markup.row(btn3)
     token.send_message(callback.message.chat.id, text="Выберите:", reply_markup=markup)
     token.delete_message(callback.message.chat.id, callback.message.message_id)
 
