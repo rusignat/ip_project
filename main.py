@@ -41,7 +41,7 @@ def callback_sms_one(callback):
         day = 0
     markup = tl.types.InlineKeyboardMarkup()
     btn1 = tl.types.InlineKeyboardButton('Расписание на сегодня', callback_data=f'two:{days[datetime.datetime.now().weekday()]}')
-    btn2 = tl.types.InlineKeyboardButton('Расписание на завтра', callback_data=f'two:{day}')
+    btn2 = tl.types.InlineKeyboardButton('Расписание на завтра', callback_data=f'two:{days[day]}')
     btn3 = tl.types.InlineKeyboardButton('Другое', callback_data='other:Другое')
     markup.row(btn1)
     markup.row(btn2)
