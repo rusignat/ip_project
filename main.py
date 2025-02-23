@@ -36,9 +36,12 @@ def check_text(message):
 @token.callback_query_handler(func=lambda callback:callback.data.startswith('one:'))
 def callback_sms_one(callback):
     f.append(callback.data[4:])
+    day = datetime.datetime.now().weekday()+1
+    if datetime.datetime.now().weekday()+1 == 7:
+        day = 0
     markup = tl.types.InlineKeyboardMarkup()
     btn1 = tl.types.InlineKeyboardButton('Расписание на сегодня', callback_data=f'two:{days[datetime.datetime.now().weekday()]}')
-    btn2 = tl.types.InlineKeyboardButton('Расписание на завтра', callback_data=f'two:{days[datetime.datetime.now().weekday()+1]}')
+    btn2 = tl.types.InlineKeyboardButton('Расписание на завтра', callback_data=f'two:{day}')
     btn3 = tl.types.InlineKeyboardButton('Другое', callback_data='other:Другое')
     markup.row(btn1)
     markup.row(btn2)
