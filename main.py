@@ -31,7 +31,7 @@ def check_text(message):
         kb = keyboa.Keyboa(kf, items_in_row=2).keyboard
         token.send_message(message.chat.id, text="Выберите класс:", reply_markup=kb)
     else:
-        token.send_message(message.chat.id, text="Пожалуйста, нажмите конпку <Расписание>.")
+        token.send_message(message.chat.id, text="Пожалуйста, нажмите на кнопку <Расписание>.")
 
 
 @token.callback_query_handler(func=lambda callback:callback.data.startswith('one:'))
