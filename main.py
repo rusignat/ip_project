@@ -20,7 +20,8 @@ def start(sms):
     markup = tl.types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn = tl.types.KeyboardButton('Расписание')
     markup.row(btn)
-    token.send_message(sms.chat.id, text="Привет, {0.first_name}! Я бот, который дает расписание ".format(sms.from_user), reply_markup = markup)
+    token.send_message(sms.chat.id, text="Привет, {0.first_name}! Я бот с расписанием с 8 по 11 класс, школы №113 "
+                                         "Приморского района".format(sms.from_user), reply_markup = markup)
 
 
 @token.message_handler(content_types=['text'])
@@ -80,7 +81,9 @@ def callback_sms_two(callback):
         btn1 = tl.types.InlineKeyboardButton('Назад', callback_data='other:Назад')
         markup.row(btn1)
         token.delete_message(callback.message.chat.id, callback.message.message_id)
-        token.send_message(callback.message.chat.id, text=f"Извините, но в {callback.data[4:].lower()} вы не учитесь. Вернитесь назад и выберите другой день недели", reply_markup=markup)
+        token.send_message(callback.message.chat.id, text=f"Извините, но в {callback.data[4:].lower()} вы не учитесь. "
+                                                          f"Вернитесь назад и выберите другой день недели",
+                           reply_markup=markup)
 
 
 token.polling(none_stop=True, interval=0)
